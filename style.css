@@ -11,7 +11,10 @@ body{
     overflow-x:hidden;
 }
 
-/* Progress Bar */
+/* ============================= */
+/* SCROLL PROGRESS BAR */
+/* ============================= */
+
 .progress-bar{
     position:fixed;
     top:0;
@@ -22,10 +25,14 @@ body{
     z-index:1000;
 }
 
+/* ============================= */
 /* HERO */
+/* ============================= */
+
 .hero{
     height:100vh;
     position:relative;
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -53,29 +60,24 @@ body{
     z-index:2;
 }
 
-/* Fluid Typography */
 .logo{
     font-family:'Bebas Neue',sans-serif;
     font-size:clamp(40px, 10vw, 90px);
     color:#ff3c00;
     text-shadow:0 0 30px #ff0000;
+    letter-spacing:2px;
 }
 
 .typing{
     margin:20px 0;
     font-size:clamp(14px, 4vw, 20px);
+    height:30px;
 }
 
-.section{
-    padding:100px 10%;
-    text-align:center;
-}
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
 
-.section h2{
-    font-size:clamp(26px, 6vw, 40px);
-}
-
-/* Buttons */
 .btn{
     padding:12px 30px;
     border:2px solid #ff3c00;
@@ -83,7 +85,9 @@ body{
     color:#ff3c00;
     cursor:pointer;
     transition:0.4s;
-    font-size:clamp(14px, 4vw, 16px);
+    position:relative;
+    overflow:hidden;
+    font-size:clamp(14px,4vw,16px);
 }
 
 .btn:hover{
@@ -92,7 +96,42 @@ body{
     box-shadow:0 0 20px #ff3c00;
 }
 
-/* Menu Grid */
+/* Ripple */
+.btn::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:0;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    transition:0.6s;
+}
+
+.btn:active::after{
+    width:300px;
+    height:300px;
+}
+
+/* ============================= */
+/* SECTIONS */
+/* ============================= */
+
+.section{
+    padding:100px 10%;
+    text-align:center;
+}
+
+.section h2{
+    font-size:clamp(26px,6vw,42px);
+}
+
+/* ============================= */
+/* MENU GRID */
+/* ============================= */
+
 .menu-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -110,11 +149,14 @@ body{
 }
 
 .glass{
+    background:rgba(255,255,255,0.05);
     backdrop-filter:blur(15px);
     border:1px solid rgba(255,255,255,0.1);
 }
 
+/* Image */
 .card-img{
+    position:relative;
     height:220px;
     overflow:hidden;
 }
@@ -123,7 +165,16 @@ body{
     width:100%;
     height:100%;
     object-fit:cover;
+    object-position:center;
+    display:block;
     transition:0.6s ease;
+}
+
+.card-img::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 }
 
 .card-content{
@@ -133,29 +184,34 @@ body{
 
 .card-content h3{
     font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(20px, 5vw, 28px);
+    font-size:clamp(20px,5vw,28px);
     color:#ff3c00;
 }
 
 .card-content p{
-    font-size:clamp(13px, 3.5vw, 15px);
     opacity:0.8;
+    font-size:clamp(13px,3.5vw,15px);
+}
+
+/* Hover */
+.card:hover img{
+    transform:scale(1.1);
 }
 
 .card:hover{
     transform:translateY(-12px);
     box-shadow:0 0 25px rgba(255,60,0,0.6);
-}
-
-.card:hover img{
-    transform:scale(1.1);
+    border-color:#ff3c00;
 }
 
 .highlight{
     border:2px solid #ff3c00;
 }
 
-/* Stats */
+/* ============================= */
+/* STATS */
+/* ============================= */
+
 .stats-grid{
     display:flex;
     justify-content:center;
@@ -165,7 +221,7 @@ body{
 }
 
 .counter{
-    font-size:clamp(32px, 8vw, 50px);
+    font-size:clamp(32px,8vw,50px);
     color:#ff3c00;
 }
 
@@ -178,7 +234,10 @@ body{
     text-shadow:0 0 10px #ff3c00;
 }
 
-/* Previous Year */
+/* ============================= */
+/* PREVIOUS YEAR */
+/* ============================= */
+
 .previous-year{
     margin-bottom:40px;
     padding:20px;
@@ -186,6 +245,13 @@ body{
     border:1px solid rgba(255,60,0,0.3);
     border-radius:12px;
     display:inline-block;
+    max-width:100%;
+}
+
+.previous-year p{
+    margin-top:10px;
+    font-weight:500;
+    color:#ff3c00;
 }
 
 .badge{
@@ -197,24 +263,114 @@ body{
     font-weight:600;
 }
 
-/* Footer */
+/* ============================= */
+/* LIVE BADGE */
+/* ============================= */
+
+.live-badge{
+    font-size:14px;
+    margin-left:15px;
+    background:rgba(255,0,0,0.15);
+    padding:5px 10px;
+    border-radius:20px;
+    color:#ff3c00;
+    vertical-align:middle;
+}
+
+.dot{
+    height:8px;
+    width:8px;
+    background:#ff0000;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:6px;
+    animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0.3;}
+    100%{opacity:1;}
+}
+
+/* ============================= */
+/* CTA PULSE */
+/* ============================= */
+
+.pulse{
+    animation:pulseAnim 2s infinite;
+}
+
+@keyframes pulseAnim{
+    0%{box-shadow:0 0 0 0 #ff3c00}
+    70%{box-shadow:0 0 30px 10px transparent}
+}
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
 footer{
     padding:20px;
     text-align:center;
     opacity:0.6;
 }
 
-/* Animations */
-@keyframes gradientMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+/* ============================= */
+/* CURSOR GLOW */
+/* ============================= */
+
+.cursor-glow{
+    position:fixed;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle,rgba(255,60,0,0.4)0%,transparent 70%);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
 }
 
-/* Mobile Optimization */
+/* ============================= */
+/* ECLIPSE REVEAL */
+/* ============================= */
+
+.eclipse-overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    animation:reveal 2s forwards;
+    z-index:999;
+}
+
+@keyframes reveal{
+    0%{clip-path:circle(100% at center)}
+    100%{clip-path:circle(0% at center)}
+}
+
+/* ============================= */
+/* LIVE POPUP */
+/* ============================= */
+
+.live-popup{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#111;
+    padding:15px 20px;
+    border-left:4px solid #ff3c00;
+    display:none;
+    max-width:90%;
+    font-size:14px;
+}
+
+/* ============================= */
+/* RESPONSIVE REFINEMENT */
+/* ============================= */
+
 @media (max-width:768px){
+
     .section{
-        padding:60px 6%;
+        padding:70px 6%;
     }
 
     .stats-grid{
@@ -225,9 +381,16 @@ footer{
     .card-img{
         height:180px;
     }
+
+    .live-badge{
+        margin-top:10px;
+        display:inline-block;
+    }
+
 }
 
 @media (max-width:480px){
+
     .hero{
         height:90vh;
     }
@@ -239,4 +402,10 @@ footer{
     .btn{
         padding:10px 22px;
     }
+
+    .previous-year{
+        width:100%;
+    }
+
 }
+
