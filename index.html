@@ -3,7 +3,337 @@
 <head>
 <meta charset="UTF-8">
 <title>Ecllipse Eats | ED Mela 2026</title>
-<link rel="stylesheet" href="style.css">
+<style>
+    *{margin:0;padding:0;box-sizing:border-box}
+body{
+    background:#000;
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+/* Scroll progress bar */
+.progress-bar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:4px;
+    background:#ff3c00;
+    width:0%;
+    z-index:1000;
+}
+
+/* Hero background with food image */
+.hero{
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        rgba(255,60,0,0.25),
+        rgba(255,0,0,0.15),
+        rgba(0,0,0,0.8)
+    );
+    background-size:200% 200%;
+    animation:gradientMove 8s ease infinite;
+    z-index:1;
+}
+
+/* Keep content above */
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+/* Slow cinematic zoom */
+@keyframes slowZoom{
+    from{transform:scale(1.1);}
+    to{transform:scale(1.2);}
+}
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.logo{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:90px;
+    color:#ff3c00;
+    text-shadow:0 0 30px #ff0000;
+}
+
+.typing{
+    margin:20px 0;
+    font-size:20px;
+    height:30px;
+}
+
+/* Buttons */
+.btn{
+    padding:12px 30px;
+    border:2px solid #ff3c00;
+    background:transparent;
+    color:#ff3c00;
+    cursor:pointer;
+    transition:0.4s;
+    position:relative;
+    overflow:hidden;
+}
+.btn:hover{
+    background:#ff3c00;
+    color:black;
+    box-shadow:0 0 20px #ff3c00;
+}
+
+/* Ripple effect */
+.btn::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:0;
+    background:rgba(255,255,255,0.4);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    transition:0.6s;
+}
+.btn:active::after{
+    width:300px;
+    height:300px;
+}
+
+/* Sections */
+.section{
+    padding:100px 10%;
+    text-align:center;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-top:50px;
+}
+
+/* Glass cards */
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:40px;
+    margin-top:50px;
+}
+
+.card{
+    border-radius:18px;
+    overflow:hidden;
+    transition:0.5s;
+    position:relative;
+}
+
+/* Glass effect */
+.glass{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Image container */
+.card-img{
+    position:relative;
+    height:220px;
+    overflow:hidden;
+}
+
+.card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.6s ease;
+}
+
+/* Dark gradient overlay on image */
+.card-img::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* Content */
+.card-content{
+    padding:20px;
+    text-align:left;
+}
+
+.card-content h3{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:28px;
+    color:#ff3c00;
+}
+
+.card-content p{
+    opacity:0.8;
+    font-size:14px;
+}
+
+/* Hover effects */
+.card:hover img{
+    transform:scale(1.1);
+}
+
+.card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 0 25px rgba(255,60,0,0.6);
+    border-color:#ff3c00;
+}
+
+/* Highlight combo card */
+.highlight{
+    border:2px solid #ff3c00;
+}
+
+
+.highlight{
+    border:2px solid #ff3c00;
+}
+
+/* Stats */
+.stats-grid{
+    display:flex;
+    justify-content:center;
+    gap:80px;
+    margin-top:50px;
+}
+.counter{
+    font-size:50px;
+    color:#ff3c00;
+}
+
+/* Pulse */
+.pulse{
+    animation:pulseAnim 2s infinite;
+}
+@keyframes pulseAnim{
+    0%{box-shadow:0 0 0 0 #ff3c00}
+    70%{box-shadow:0 0 30px 10px transparent}
+}
+
+/* Footer */
+footer{
+    padding:20px;
+    text-align:center;
+    opacity:0.6;
+}
+
+/* Cursor glow */
+.cursor-glow{
+    position:fixed;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle,rgba(255,60,0,0.4)0%,transparent 70%);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+}
+
+/* Eclipse reveal */
+.eclipse-overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    animation:reveal 2s forwards;
+    z-index:999;
+}
+@keyframes reveal{
+    0%{clip-path:circle(100% at center)}
+    100%{clip-path:circle(0% at center)}
+}
+
+/* Live popup */
+.live-popup{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#111;
+    padding:15px 20px;
+    border-left:4px solid #ff3c00;
+    display:none;
+}
+
+
+/* Previous Year Section */
+.previous-year{
+    margin-bottom:40px;
+    padding:20px;
+    background:rgba(255,60,0,0.08);
+    border:1px solid rgba(255,60,0,0.3);
+    border-radius:12px;
+    display:inline-block;
+}
+
+.previous-year p{
+    margin-top:10px;
+    font-weight:500;
+    color:#ff3c00;
+}
+
+.badge{
+    background:#ff3c00;
+    color:black;
+    padding:5px 12px;
+    font-size:12px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+/* Live Badge */
+.live-badge{
+    font-size:14px;
+    margin-left:15px;
+    background:rgba(255,0,0,0.15);
+    padding:5px 10px;
+    border-radius:20px;
+    color:#ff3c00;
+    vertical-align:middle;
+}
+
+.dot{
+    height:8px;
+    width:8px;
+    background:#ff0000;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:6px;
+    animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0.3;}
+    100%{opacity:1;}
+}
+
+/* Stat boxes glow */
+.stat-box{
+    transition:0.4s;
+}
+
+.stat-box:hover{
+    transform:translateY(-8px);
+    text-shadow:0 0 10px #ff3c00;
+}
+
+</style>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -128,6 +458,83 @@
 
 <div class="live-popup">🔥 Someone just ordered Eclipse Combo</div>
 
-<script src="script.js"></script>
+<script>
+    // Smooth scroll
+document.querySelector(".explore-btn")
+.addEventListener("click",()=>{
+    document.querySelector(".menu")
+    .scrollIntoView({behavior:"smooth"});
+});
+
+// Scroll progress
+window.addEventListener("scroll",()=>{
+    const scrollTop=document.documentElement.scrollTop;
+    const height=document.documentElement.scrollHeight-
+                 document.documentElement.clientHeight;
+    document.querySelector(".progress-bar").style.width=
+        (scrollTop/height)*100+"%";
+});
+
+// Cursor glow
+const cursor=document.querySelector(".cursor-glow");
+document.addEventListener("mousemove",e=>{
+    cursor.style.left=e.pageX+"px";
+    cursor.style.top=e.pageY+"px";
+});
+
+// Typing effect
+const text="Where Crunch Meets Chaos";
+let i=0;
+function typing(){
+    if(i<text.length){
+        document.querySelector(".typing").innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(typing,50);
+    }
+}
+typing();
+
+// Counter animation
+const counters=document.querySelectorAll(".counter");
+counters.forEach(counter=>{
+    const update=()=>{
+        const target=+counter.getAttribute("data-target");
+        const count=+counter.innerText;
+        const inc=target/100;
+        if(count<target){
+            counter.innerText=Math.ceil(count+inc);
+            setTimeout(update,20);
+        }else{
+            counter.innerText=target;
+        }
+    };
+    update();
+});
+
+// Scroll reveal
+const sections=document.querySelectorAll(".section");
+sections.forEach(section=>{
+    section.style.opacity=0;
+    section.style.transform="translateY(50px)";
+    section.style.transition="1s";
+});
+window.addEventListener("scroll",()=>{
+    sections.forEach(section=>{
+        if(section.getBoundingClientRect().top<window.innerHeight-100){
+            section.style.opacity=1;
+            section.style.transform="translateY(0)";
+        }
+    });
+});
+
+// Fake live order popup
+setInterval(()=>{
+    const popup=document.querySelector(".live-popup");
+    popup.style.display="block";
+    setTimeout(()=>popup.style.display="none",3000);
+},8000);
+
+</script>
 </body>
 </html>
+
